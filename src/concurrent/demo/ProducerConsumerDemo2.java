@@ -54,19 +54,23 @@ class Producer2 implements Runnable {
 
 	@Override
 	public void run() {
-		Product2 Product2 = null;
+		Product2 p = null;
 		// 生产者不停的生产
 		for (int index = 0; index < tobeProduceNum; index++) {
-			Product2 = new Product2(index);
+			p = new Product2(index);
 			try {
 				// 将指定的元素插入到该队列中，如果需要的话，等待空间可用
-				blockingQueue.put(Product2);
+				blockingQueue.put(p);
+				System.out.println(Thread.currentThread().getName() + " 生产了一个产品(id= " + p.getId() + "), 仓库里面还有 "
+						+ blockingQueue.size() + " 个产品");
+				// 日志打印有问题的，将商品放入队列和打印日志 非原子操作
 
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
+		System.out.println("生产者线程一共生产了" + tobeProduceNum + "个商品，生产结束");
 	}
 
 }
@@ -90,7 +94,10 @@ class Consumer2 implements Runnable {
 		for (;;) {
 			try {
 				// 检索并移除该队列的头，在必要时等待，直到元素变为可用。
-				blockingQueue.take();
+				Product2 p = blockingQueue.take();
+				System.out.println(Thread.currentThread().getName() + " 消费了一个产品(id= " + p.getId() + "), 仓库里面还有 "
+						+ blockingQueue.size() + " 个产品");
+				// 日志打印有问题的，将商品从队列中取出和打印日志 非原子操作
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
