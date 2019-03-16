@@ -7,8 +7,12 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-/*
- * 例子:一个为基于CountDownLatch 的模拟项目，一个项目可以分为多个模块，只有但这些模块都完成后才可以继续下一步的工作。
+/**
+ * 例子:一个为基于CountDownLatch 的模拟项目，一个项目可以分为多个模块， 只有但这些模块都完成后才可以继续下一步的工作。
+ * 
+ * @author chenyi
+ *
+ * @date 2019年3月16日
  */
 public class CountDownLatchDemo {
  
@@ -48,8 +52,8 @@ class Controller implements Runnable {
 
 /**
  * 模块
+ * 
  * @author lenovo
- *
  */
 class Module implements Runnable {
 	
